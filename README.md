@@ -20,7 +20,7 @@ included: this lab is the main application, built from its source.
 
 ```bash
 isoloom generate
-isoloom up docker
+isoloom run docker
 ```
 
 Then open http://localhost:9090/VulnerableApp/. The same spec runs as Docker on a local VM
