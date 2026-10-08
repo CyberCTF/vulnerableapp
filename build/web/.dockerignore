@@ -1,0 +1,4 @@
+Dockerfile
+app/.gradle/
+app/build/
+app/bin/

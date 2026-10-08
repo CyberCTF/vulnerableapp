@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP VulnerableApp (by Karan Preet Singh Sasan and the SasanLabs contributors) as an Isoloom
+# spec: the Spring Boot application, vendored unchanged in build/web/app/, built from source
+# (upstream publishes it only as a Jib image). `isoloom generate`, then `isoloom up docker`.
+version: 1
+name: vulnerableapp
+
+networks:
+  lab: { cidr: 10.60.16.0/24, internet: false }
+
+machines:
+  web:
+    networks: { lab: 10 }
+    services: [{ port: 9090, name: web, http: true, publish: 9090 }]
+    resources: { cpus: 1, memory_mb: 1024 }
+    docker:
+      build: build/web
+
+checks:
+  - name: the application answers
+    http: http://web:9090/VulnerableApp/
+    wait: 180
+  - name: the vulnerability definitions are listed
+    http: http://web:9090/VulnerableApp/VulnerabilityDefinitions
+  - name: the scanner ground truth is served
+    http: http://web:9090/VulnerableApp/scanner
+
+message: |
+  OWASP VulnerableApp answers at http://localhost:{{ machines.web.services.0.publish }}/VulnerableApp/.
+  Pick a vulnerability type in the left menu, then work through its levels; each level adds a defence to bypass.

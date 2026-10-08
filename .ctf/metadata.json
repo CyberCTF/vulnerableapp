@@ -1,0 +1,9 @@
+{
+  "title": "OWASP VulnerableApp",
+  "description": "A modular, deliberately vulnerable Spring Boot application where each vulnerability type comes in levels of increasing defence: SQL injection, XSS, XXE, SSRF, command injection, JWT flaws, path traversal and unrestricted file upload.",
+  "question": "Exploit each vulnerability type through its levels, bypassing the defence each level adds.",
+  "category": "WEB",
+  "difficulty": 2,
+  "evidence_kind": "SECRET",
+  "capabilities": ["sql-injection", "cross-site-scripting", "xml-external-entity", "server-side-request-forgery", "jwt-attacks", "command-injection"]
+}
