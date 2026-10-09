@@ -4,6 +4,5 @@
   "question": "Exploit each vulnerability type through its levels, bypassing the defence each level adds.",
   "category": "WEB",
   "difficulty": 2,
-  "evidence_kind": "SECRET",
-  "capabilities": ["sql-injection", "cross-site-scripting", "xml-external-entity", "server-side-request-forgery", "jwt-attacks", "command-injection"]
+  "evidence_kind": "SECRET"
 }
