@@ -9,6 +9,9 @@ services:
   web:
     build:
       context: ../../build/web
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: vulnerableapp
     image: isoloom/vulnerableapp-web
     platform: linux/amd64
     hostname: web
@@ -40,6 +43,8 @@ services:
           memory: 1024M
     labels:
       isoloom.service.web: http:9090
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
     restart: unless-stopped
   web-routes:
     image: alpine:3.20
@@ -61,6 +66,9 @@ services:
       web:
         condition: service_started
     restart: unless-stopped
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
   isoloom-check:
     image: curlimages/curl:8.11.1
     profiles:
@@ -81,6 +89,9 @@ services:
         condition: service_healthy
       web-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
   isoloom-check-web:
     image: curlimages/curl:8.11.1
     profiles:
@@ -96,6 +107,9 @@ services:
         condition: service_healthy
       web-routes:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -107,11 +121,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.16.0/24
         gateway: 10.60.16.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: vulnerableapp
